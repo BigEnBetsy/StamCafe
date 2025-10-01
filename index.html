@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StamCafé - Jouw Thuis Weg Van Huis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== BASIS STIJLEN ===== */
+        :root {
+            --primary: #8B4513;
+            --secondary: #D2691E;
+            --accent: #FFD700;
+            --light: #F5F5DC;
+            --dark: #3E2723;
+            --text: #333333;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Georgia', serif;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(62, 39, 35, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: var(--transition);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background-color: rgba(62, 39, 35, 0.98);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            font-family: 'Georgia', serif;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .hero-btn {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        /* ===== OVER ONS SECTION ===== */
+        .about {
+            background-color: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 10px;
+            background-color: var(--light);
+            transition: var(--transition);
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        /* ===== MENU SECTION ===== */
+        .menu {
+            background-color: var(--light);
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 10px 25px;
+            background-color: white;
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .category-btn.active,
+        .category-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-item-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .menu-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .menu-item:hover .menu-item-img img {
+            transform: scale(1.1);
+        }
+
+        .menu-item-content {
+            padding: 20px;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .menu-item-title {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+        }
+
+        .menu-item-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .menu-item-desc {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .menu-item-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 5px 10px;
+            background-color: var(--light);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tag.vegetarian {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .tag.glutenfree {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .tag.spicy {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        /* ===== EVENEMENTEN SECTION ===== */
+        .events {
+            background-color: white;
+        }
+
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .event-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .event-date {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .event-day {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .event-month {
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .event-content {
+            padding: 20px;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .event-time {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .event-desc {
+            margin-bottom: 15px;
+        }
+
+        /* ===== GALERIJ SECTION ===== */
+        .gallery {
+            background-color: var(--light);
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-icon {
+            color: white;
+            font-size: 2rem;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            background-color: white;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            min-width: 30px;
+        }
+
+        .contact-details h3 {
+            margin-bottom: 5px;
+        }
+
+        .opening-hours {
+            margin-top: 20px;
+        }
+
+        .opening-hours h3 {
+            margin-bottom: 15px;
+        }
+
+        .hours-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .hour-item {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .contact-form {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(139, 69, 19, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .footer-col h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-col p {
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-newsletter p {
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== RESPONSIVE STYLING ===== */
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .mobile-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .mobile-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .mobile-nav-links {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .mobile-nav-links a {
+                color: white;
+                font-size: 1.1rem;
+                padding: 10px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 60px 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-beer"></i>
+                </div>
+                <div class="logo-text">StamCafé</div>
+            </div>
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">Over Ons</a>
+                <a href="#menu">Menu</a>
+                <a href="#events">Evenementen</a>
+                <a href="#gallery">Galerij</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">Over Ons</a>
+                <a href="#menu">Menu</a>
+                <a href="#events">Evenementen</a>
+                <a href="#gallery">Galerij</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1 class="hero-title">Welkom bij StamCafé</h1>
+            <p class="hero-subtitle">Jouw thuis weg van huis sinds 1998</p>
+            <p>Geniet van de beste koffie, vers getapt bier en heerlijke hapjes in een gezellige en gemoedelijke sfeer.</p>
+            <div class="hero-btns">
+                <a href="#menu" class="btn btn-primary hero-btn">Bekijk ons menu</a>
+                <a href="#contact" class="btn btn-secondary hero-btn">Bezoek ons</a>
+            </div>
+        </div>
+        <a href="#about" class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- Over Ons Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title">Over Ons</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Ons Verhaal</h2>
+                    <p>StamCafé opende zijn deuren in 1998 met een simpele missie: een plek creëren waar vrienden, familie en buren samen kunnen komen om te genieten van goed eten, drank en gezelschap.</p>
+                    <p>Ons café is uitgegroeid tot een begrip in de buurt, bekend om zijn warme sfeer, uitstekende service en heerlijke koffie die vers wordt gebrand door onze lokale koffiebrander.</p>
+                    <p>Of je nu komt voor een ontbijtje, een snelle lunch, een borrel na werk of een avondje stappen, bij StamCafé voel je je altijd thuis.</p>
+                    <a href="#contact" class="btn btn-primary">Kom langs</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Interieur van StamCafé">
+                </div>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <h3>Verse Koffie</h3>
+                    <p>Elke dag vers gebrande bonen en ambachtelijk gezet voor de perfecte kop koffie.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-beer"></i>
+                    </div>
+                    <h3>Lokaal Bier</h3>
+                    <p>Een uitgebreide selectie van lokale speciaalbieren en internationale klassiekers.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Vers Bereid</h3>
+                    <p>Alle gerechten worden dagelijks vers bereid met lokale en seizoensgebonden ingrediënten.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="section menu" id="menu">
+        <div class="container">
+            <h2 class="section-title">Ons Menu</h2>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="all">Alles</button>
+                <button class="category-btn" data-category="dranken">Dranken</button>
+                <button class="category-btn" data-category="hapjes">Hapjes</button>
+                <button class="category-btn" data-category="hoofdgerechten">Hoofdgerechten</button>
+                <button class="category-btn" data-category="desserts">Desserts</button>
+            </div>
+            <div class="menu-items">
+                <!-- Dranken -->
+                <div class="menu-item" data-category="dranken">
+                    <div class="menu-item-img">
+                        <img src="/Foto/Espresso.jpg" alt="Espresso">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Espresso</h3>
+                            <div class="menu-item-price">€2,50</div>
+                        </div>
+                        <p class="menu-item-desc">Een intense en aromatische espresso gemaakt van onze huisblend.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Koffie</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="dranken">
+                    <div class="menu-item-img">
+                        <img src="/Foto/Cappuccino.jpg" alt="Cappuccino">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Cappuccino</h3>
+                            <div class="menu-item-price">€3,20</div>
+                        </div>
+                        <p class="menu-item-desc">Romige cappuccino met een perfecte balans tussen espresso, melk en schuim.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Koffie</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="dranken">
+                    <div class="menu-item-img">
+                        <img src="/Foto/lokaalbier.png" alt="Speciaalbier">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Lokaal Speciaalbier</h3>
+                            <div class="menu-item-price">€4,50</div>
+                        </div>
+                        <p class="menu-item-desc">Wisselend aanbod van de beste lokale brouwerijen. Vraag naar ons bier van de maand!</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Bier</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hapjes -->
+                <div class="menu-item" data-category="hapjes">
+                    <div class="menu-item-img">
+                        <img src="/Foto/bitterballen.webp" alt="Bitterballen">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Huisgemaakte Bitterballen</h3>
+                            <div class="menu-item-price">€6,50</div>
+                        </div>
+                        <p class="menu-item-desc">Krokante bitterballen gevuld met een romige ragout van rundvlees. Geserveerd met mosterd.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Huisgemaakt</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="hapjes">
+                    <div class="menu-item-img">
+                        <img src="/Foto/kaasplank.jpg" alt="Kaasplank">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Kaasplank</h3>
+                            <div class="menu-item-price">€12,50</div>
+                        </div>
+                        <p class="menu-item-desc">Een selectie van Nederlandse en internationale kazen, noten, druiven en crackers.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag vegetarian">Vegetarisch</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hoofdgerechten -->
+                <div class="menu-item" data-category="hoofdgerechten">
+                    <div class="menu-item-img">
+                        <img src="/Foto/burger.jpg" alt="StamBurger">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">StamBurger</h3>
+                            <div class="menu-item-price">€15,50</div>
+                        </div>
+                        <p class="menu-item-desc">Onze signature burger met 200g rundvlees, cheddarkaas, spek, sla, tomaat en onze speciale saus.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Huisgemaakt</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="hoofdgerechten">
+                    <div class="menu-item-img">
+                        <img src="/Foto/pasta carbonara.webp" alt="Pasta Carbonara">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Pasta Carbonara</h3>
+                            <div class="menu-item-price">€14,00</div>
+                        </div>
+                        <p class="menu-item-desc">Traditionele carbonara met guanciale, eidooiers, pecorino kaas en zwarte peper.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag">Huisgemaakt</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Desserts -->
+                <div class="menu-item" data-category="desserts">
+                    <div class="menu-item-img">
+                        <img src="/Foto/appeltaart.webp" alt="Appeltaart">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Huisgemaakte Appeltaart</h3>
+                            <div class="menu-item-price">€5,50</div>
+                        </div>
+                        <p class="menu-item-desc">Onze beroemde appeltaart volgens oma's recept. Geserveerd met slagroom.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag vegetarian">Vegetarisch</span>
+                            <span class="tag">Huisgemaakt</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="desserts">
+                    <div class="menu-item-img">
+                        <img src="/Foto/lavacake.webp" alt="Chocoladetaart">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Chocolade Lava Cake</h3>
+                            <div class="menu-item-price">€6,50</div>
+                        </div>
+                        <p class="menu-item-desc">Warme chocoladetaart met een vloeibare kern. Geserveerd met vanille-ijs.</p>
+                        <div class="menu-item-tags">
+                            <span class="tag vegetarian">Vegetarisch</span>
+                            <span class="tag">Huisgemaakt</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evenementen Section -->
+    <section class="section events" id="events">
+        <div class="container">
+            <h2 class="section-title">Evenementen</h2>
+            <div class="events-container">
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="event-day">15</span>
+                        <span class="event-month">Juni</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">Live Muziek Avond</h3>
+                        <div class="event-time">
+                            <i class="far fa-clock"></i>
+                            <span>20:00 - 23:00</span>
+                        </div>
+                        <p class="event-desc">Geniet van akoestische optredens van lokale talenten. Gratis entree!</p>
+                        <a href="#contact" class="btn btn-primary">Meer info</a>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="event-day">22</span>
+                        <span class="event-month">Juni</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">Bier Proef Avond</h3>
+                        <div class="event-time">
+                            <i class="far fa-clock"></i>
+                            <span>19:30 - 22:30</span>
+                        </div>
+                        <p class="event-desc">Proef 5 speciale bieren met bijpassende hapjes. €25 p.p.</p>
+                        <a href="#contact" class="btn btn-primary">Reserveer</a>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="event-day">29</span>
+                        <span class="event-month">Juni</span>
+                    </div>
+                    <div class="event-content">
+                        <h3 class="event-title">Quiz Night</h3>
+                        <div class="event-time">
+                            <i class="far fa-clock"></i>
+                            <span>20:00 - 22:00</span>
+                        </div>
+                        <p class="event-desc">Doe mee met onze wekelijkse pubquiz! Prijzen te winnen.</p>
+                        <a href="#contact" class="btn btn-primary">Meedoen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galerij Section -->
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Galerij</h2>
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Café interieur">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus gallery-icon"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gerechten">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus gallery-icon"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Koffie">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus gallery-icon"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1572119865084-43c285814d63?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bier">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus gallery-icon"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gezellige sfeer">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus gallery-icon"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Terrass">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus gallery-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Adres</h3>
+                            <p>Hoofdstraat 123<br>1234 AB Stad</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Telefoon</h3>
+                            <p>+31 20 123 4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>info@stamcafe.nl</p>
+                        </div>
+                    </div>
+                    <div class="opening-hours">
+                        <h3>Openingstijden</h3>
+                        <div class="hours-list">
+                            <div class="hour-item">
+                                <span>Maandag - Donderdag</span>
+                                <span>10:00 - 01:00</span>
+                            </div>
+                            <div class="hour-item">
+                                <span>Vrijdag - Zaterdag</span>
+                                <span>10:00 - 02:00</span>
+                            </div>
+                            <div class="hour-item">
+                                <span>Zondag</span>
+                                <span>12:00 - 00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Stuur ons een bericht</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Naam</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Onderwerp</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Bericht</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Verstuur bericht</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>StamCafé</h3>
+                    <p>Jouw thuis weg van huis sinds 1998. Geniet van de beste koffie, vers getapt bier en heerlijke hapjes in een gezellige sfeer.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Snelle Links</h3>
+                    <div class="footer-links">
+                        <a href="#home">Home</a>
+                        <a href="#about">Over Ons</a>
+                        <a href="#menu">Menu</a>
+                        <a href="#events">Evenementen</a>
+                        <a href="#gallery">Galerij</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact</h3>
+                    <div class="footer-links">
+                        <a href="tel:+31201234567">+31 20 123 4567</a>
+                        <a href="mailto:info@stamcafe.nl">info@stamcafe.nl</a>
+                        <a href="#">Hoofdstraat 123, 1234 AB Stad</a>
+                    </div>
+                </div>
+                <div class="footer-col footer-newsletter">
+                    <h3>Nieuwsbrief</h3>
+                    <p>Schrijf je in voor onze nieuwsbrief en blijf op de hoogte van onze evenementen en aanbiedingen.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Jouw email adres" required>
+                        <button type="submit" class="btn btn-primary">Inschrijven</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 StamCafé. Alle rechten voorbehouden.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-links a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Menu filtering
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const category = btn.getAttribute('data-category');
+                
+                // Show/hide menu items based on category
+                menuItems.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.');
+            this.reset();
+        });
+
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = this.querySelector('.newsletter-input');
+            alert(`Bedankt voor je inschrijving! We hebben een bevestiging gestuurd naar ${emailInput.value}`);
+            emailInput.value = '';
+        });
+    </script>
+</body>
+</html>
